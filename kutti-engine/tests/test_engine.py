@@ -1,25 +1,20 @@
-from engine.state_manager import StateManager, EngineState
-from engine.lifecycle import Lifecycle
-from engine.health import HealthMonitor
+from engine.startup import Startup
+from engine.kernel import Kernel
 
 
-state = StateManager()
-life = Lifecycle(state)
+startup = Startup()
 
-print("Initial:", state.state)
+components = startup.initialize()
 
-life.start()
-print("Starting:", state.state)
 
-life.running()
-print("Running:", state.state)
+kernel = Kernel(
+    state=components["state"],
+    lifecycle=components["lifecycle"],
+    health=components["health"],
+)
 
-health = HealthMonitor()
+kernel.start()
 
-print("Health:", health.get_summary())
+print(kernel.health_status())
 
-life.shutdown()
-print("Shutdown:", state.state)
-
-life.stop()
-print("Stopped:", state.state)
+kernel.stop()
