@@ -1,0 +1,2 @@
+class VoiceException(Exception):
+    pass
