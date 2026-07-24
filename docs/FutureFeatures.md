@@ -312,6 +312,3 @@ Very High
 # Future Ideas
 
 Every new idea discussed during development must be added here before implementation.
-
-
-Testing mail notifications!
