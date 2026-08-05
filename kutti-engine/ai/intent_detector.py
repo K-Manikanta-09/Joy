@@ -3,20 +3,44 @@ class IntentDetector:
     Detects the user's intent from input text.
     """
 
+    INTENTS = {
+        "OPEN": [
+            "open",
+            "launch",
+            "start",
+            "run",
+        ],
+
+        "CLOSE": [
+            "close",
+            "exit",
+            "quit",
+            "terminate",
+        ],
+
+        "SEARCH": [
+            "search",
+            "find",
+            "look",
+            "lookup",
+        ],
+
+        "PLAY": [
+            "play",
+            "listen",
+            "watch",
+        ],
+    }
+
     def detect(self, message: str):
 
         message = message.lower()
 
-        if "open" in message:
-            return "OPEN"
+        for intent, keywords in self.INTENTS.items():
 
-        if "close" in message:
-            return "CLOSE"
+            for keyword in keywords:
 
-        if "search" in message:
-            return "SEARCH"
-
-        if "play" in message:
-            return "PLAY"
+                if keyword in message:
+                    return intent
 
         return "CHAT"

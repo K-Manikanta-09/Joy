@@ -16,14 +16,23 @@ class OpenAppSkill(BaseSkill):
             print("No application specified.")
             return False
 
-        command = WINDOWS_APPS.get(app.lower())
+        app = app.lower().strip()
+
+        command = WINDOWS_APPS.get(app)
 
         if not command:
             print(f"Application '{app}' is not supported.")
             return False
 
-        subprocess.Popen(command, shell=True)
+        try:
+            subprocess.Popen(command, shell=True)
 
-        print(f"Opening {app}...")
+            print(f"Opening {app}...")
 
-        return True
+            return True
+
+        except Exception as ex:
+
+            print(f"Failed to open {app}: {ex}")
+
+            return False
